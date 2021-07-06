@@ -8,7 +8,7 @@ function log(status, message){
   } else if (status == 2){
     console.log("\x1b[4m\x1b[31m", `[ERR]${date} ${message}`);
   } else {
-    console.log(`${date} message`);
+    console.log(`${date} ${message}`);
   }
 }
 

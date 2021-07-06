@@ -1,5 +1,10 @@
 const fs = require('fs');
 
+const log = require('./logger.js').log;
+
+const tf = require('@tensorflow/tfjs');
+require('@tensorflow/tfjs-node');
+
 var ok_unsorted = fs.readdirSync('./ok');
 var ok = [];
 
