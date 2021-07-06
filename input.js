@@ -5,14 +5,6 @@ const tf = require('@tensorflow/tfjs-node');
 
 //do a little trolling...
 
-//tezt  
-/*var img_buffer = fs.readFileSync('./not_ok/test.jpg');
-var img_tensor = tf.node.decodeImage(img_buffer);
-log(2, img_tensor.shape);
-var img_tensor2 = tf.image.resizeNearestNeighbor(img_tensor, [100,100]);
-log(2, img_tensor2.shape);
-log(0,img_tensor);*/
-
 //A LITTLE TROLLING
 async function loadImages(dir){
     var unsorted = fs.readdirSync(dir);
@@ -33,10 +25,11 @@ async function loadImages(dir){
 }
 
 //mamba
+/*
 (async()=>{
     let mamba = await loadImages('./not_ok');
     await log(0,mamba);
-})()
+})()*/
 
 //exports
 exports.loadImages = loadImages;
