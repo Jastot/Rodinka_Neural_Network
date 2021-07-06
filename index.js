@@ -1,15 +1,25 @@
+//require
 const fs = require('fs');
+const log = require('./logger.js').log; //custom logger xd
+const tf = require('@tensorflow/tfjs-node');
 
-const log = require('./logger.js').log;
-
-const tf = require('@tensorflow/tfjs');
-require('@tensorflow/tfjs-node');
+//code
 
 var ok_unsorted = fs.readdirSync('./ok');
 var ok = [];
 
 var not_ok_unsorted = fs.readdirSync('./not_ok');
 var not_ok = [];
+
+//do a little trolling...
+
+var img_buffer = fs.readFileSync('./not_ok/test.jpg');
+var img_tensor = tf.node.decodeImage(img_buffer);
+log(0,img_tensor);
+
+const model = tf.sequential();
+model.add(tf.layers.dense({units: 100, activation: 'relu', inputShape: [10]}));
+///sfasdfasdfs
 
 (async()=>{
     await ok_unsorted.forEach(e=>{
