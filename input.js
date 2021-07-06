@@ -32,4 +32,4 @@ async function loadImages(dir){
 })()*/
 
 //exports
-exports.loadImages = loadImages;
+exports.loadImages = getImages;
