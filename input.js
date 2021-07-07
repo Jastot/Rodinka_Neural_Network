@@ -6,6 +6,19 @@ const tf = require('@tensorflow/tfjs-node');
 //do a little trolling...
 
 //A LITTLE TROLLING
+function loadImage(path, newShape=[32, 32]){
+    log(0,`Loading image ${__dirname+path}`)
+    var buffer = fs.readFileSync(path);
+    var tensor = tf.node.decodeImage(buffer)
+                    .resizeNearestNeighbor(newShape)
+                    .toFloat()
+                    .div(tf.scalar(255.0))
+                    .expandDims();
+    log(0,"Loaded image");
+    let output = tensor;
+    return output;
+}
+
 function loadImages(dir, newShape=[32, 32], limit = null){
     log(0,`Loading images from ${__dirname+dir}`)
     var unsorted = fs.readdirSync(dir);
@@ -52,3 +65,4 @@ function splitData(data){
 
 //exports
 exports.loadImages = loadImages;
+exports.loadImage = loadImage;
