@@ -1,35 +1,44 @@
 //require
 const fs = require('fs');
-const log = require('./logger.js').log; //custom logger xd
+const log = require('./logger.js').log;
 const tf = require('@tensorflow/tfjs-node');
 
 //do a little trolling...
 
 //A LITTLE TROLLING
-async function loadImages(dir){
+function loadImages(dir){
     var unsorted = fs.readdirSync(dir);
     var sorted = [];
     var tensors=[];
-    await unsorted.forEach(e=>{
-        if(/(.+).png/.test(e)||/(.+).jpg/.test(e)||/(.+).jpeg/.test(e)){
+    log(0,`Loading images from ${__dirname+dir}`)
+    unsorted.forEach(e=>{
+        if(/(.+).png/.test(e.toLowerCase())||/(.+).jpg/.test(e.toLowerCase())||/(.+).jpeg/.test(e.toLowerCase())){
             sorted.push(e);
         }
     });
-    await sorted.forEach(e=>{
+    sorted.forEach(e=>{
         let img_buffer = fs.readFileSync(`${dir}/${e}`);
-        let img_tensor = tf.node.decodeImage(img_buffer);
-        let img_tensor_reshaped = img_tensor.resizeNearestNeighbor([512,512]);
-        tensors.push(img_tensor_reshaped);
+        let img_tensor = tf.node.decodeImage(img_buffer)
+                            .resizeNearestNeighbor([128,128])
+                            .toFloat()
+                            .div(tf.scalar(255.0))
+        tensors.push(img_tensor);
     });
-    return tensors
+    log(0,"Loaded images");
+    return tf.concat(tensors);
 }
 
-//mamba
+//maybe?
 /*
+function splitData(data){
+
+}
+*/
+
+//mamba
 (async()=>{
-    let mamba = await loadImages('./not_ok');
-    await log(0,mamba);
-})()*/
+    log(3,loadImages('./not_ok'))
+})()
 
 //exports
-exports.loadImages = getImages;
+exports.laodImages = loadImages;
