@@ -6,7 +6,7 @@ const tf = require('@tensorflow/tfjs-node');
 //do a little trolling...
 
 //A LITTLE TROLLING
-function loadImages(dir, limit = null){
+function loadImages(dir, newShape=[32, 32], limit = null){
     log(0,`Loading images from ${__dirname+dir}`)
     var unsorted = fs.readdirSync(dir);
     var sorted = [];
@@ -26,14 +26,15 @@ function loadImages(dir, limit = null){
     sorted.forEach(e=>{
         let img_buffer = fs.readFileSync(`${dir}/${e}`);
         let img_tensor = tf.node.decodeImage(img_buffer)
-                            .resizeNearestNeighbor([32,32])
+                            .resizeNearestNeighbor(newShape)
                             .toFloat()
                             .div(tf.scalar(255.0))
                             .expandDims();
         tensors.push(img_tensor);
     });
     log(0,"Loaded images");
-    return tf.concat(tensors);
+    let output = tf.concat(tensors);
+    return output;
 }
 
 //maybe?
