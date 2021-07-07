@@ -36,9 +36,10 @@ function splitData(data){
 */
 
 //mamba
+/*
 (async()=>{
     log(3,loadImages('./not_ok'))
-})()
+})()*/
 
 //exports
 exports.laodImages = loadImages;
