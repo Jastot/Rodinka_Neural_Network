@@ -18,13 +18,13 @@ async function save(model, path){
 //consts
 const startTraining=1;
 const saveModel=1;
-const savePath=`file://${__dirname}/model`;
+const savePath=`file://${__dirname}/model_test`;
 const shape = [32,32];
-const n = 2000;
+const n = 200;
 const trainSettings = {
     epochs:40,
-    batchSize:100,
-    shuffle: true,
+    batchSize:25,
+    //shuffle: true,
 };
 
 //inputs
