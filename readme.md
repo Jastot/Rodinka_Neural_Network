@@ -18,5 +18,5 @@
 
 ​	From the first sight, `tf.losses.meanSquaredError` was a choice. However, after a bit of research, we realised that `tf.losses.meanSquaredError` is mostly used for *regression* problems because of its mathematic nature. Long story short, it can't penalise the model enough when solving *classification* problems.
 
-​	Thereby, a cross entropy function was chosen. However, there are two versions of it: `tf.losses.sigmoidCrossEntropy` and `tf.losses.softmaxCrossEntropy`.
+​	Thereby, a cross entropy function was chosen. It minimizes $-log(likelihood)$, thus penalising the model more when it outputs a very bed result. However, there are two versions of it in a tensorflow library: `tf.losses.sigmoidCrossEntropy` and `tf.losses.softmaxCrossEntropy`.
 
