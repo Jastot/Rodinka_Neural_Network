@@ -2,13 +2,13 @@
 
 ### To-do
 
-- [ ] Research about convolutional layers 
-- [ ] Research about basic layers:
-  - [ ] Dense
-  - [ ] Activation
-  - [ ] Dropout
-- [ ] Research about pooling layers
-- [ ] Research about losses
+- [x] Research about convolutional layers 
+- [x] Research about basic layers:
+  - [x] Dense
+  - [x] Activation
+  - [x] Dropout
+- [x] Research about pooling layers
+- [x] Research about losses
 - [ ] Research about optimizers
 - [ ] Make a nice classifier model out of layers mentioned above
 
@@ -24,11 +24,18 @@
 
 ​	From the first sight, `tf.losses.meanSquaredError` was a choice. However, after a bit of research, we realised that `tf.losses.meanSquaredError` is mostly used for *regression* problems because of its mathematic nature. Long story short, it can't penalise the model enough when solving *classification* problems.
 
-​	Thereby, a cross entropy function was chosen. It minimizes -log(likelihood)​, thus penalising the model more when it outputs a very bed result. However, there are two versions of it in a tensorflow library: `tf.losses.sigmoidCrossEntropy` and `tf.losses.softmaxCrossEntropy`. The differnce is unknown, but the softmax performs better so it was used.
+​	Thereby, a cross entropy function was chosen. It minimizes -log(likelihood)​, thus penalising the model more when it outputs a very bed result. However, there are two versions of it in a tensorflow library: `tf.losses.sigmoidCrossEntropy` and `tf.losses.softmaxCrossEntropy`. The differnce is unknown, but the softmax performs better so it was used. (??????)
 
 | Loss Function       | Loss  | Accuracy |
 | ------------------- | ----- | -------- |
 | softmaxCrossEntropy | 0.395 | 0.877    |
 | sigmoidCrossEntropy | 0.486 | 0.746    |
-|                     |       |          |
 
+### Used to understand the topic
+
+- https://www.quora.com/What-makes-ReLU-so-much-better-than-Linear-Activation-As-half-of-them-are-exactly-the-same
+- https://machinelearningmastery.com/convolutional-layers-for-deep-learning-neural-networks/
+- https://machinelearningmastery.com/pooling-layers-for-convolutional-neural-networks/
+- https://machinelearningmastery.com/dropout-for-regularizing-deep-neural-networks/
+- https://towardsdatascience.com/recognizing-cats-and-dogs-with-tensorflow-105eb56da35f
+- https://medium.com/@nutanbhogendrasharma/tensorflow-classify-images-of-cats-and-dogs-by-using-transfer-learning-59da26723bda
