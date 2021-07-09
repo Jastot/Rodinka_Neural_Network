@@ -18,7 +18,7 @@
 
 ​	Definitely, our problem is a classification problem, meaning we will be using something like sigmoid function in our output layer. There are two sigmoid-like functions in the **tensorflow** library: `sigmoid` (genuine sigmoid) and `softmax` (sigmoid-like function). The difference is that in softmax inputs are depended, so the output probabilities will always sum to one, which is probably good for multiclass classification. We have only two classes, thereby using `sigmoid` in output layer.
 
-​	`ReLU` actiovation function is considered a standard in DeepLearning hidden layers nowadays as it is easy to calculate , it doesn't saturate. Also, it was shown that `ReLU` layers after filters suprisingly improve image classifiers performance. `ReLU` was used in convolutional layers.
+​	`ReLU` actiovation function is considered a standard in DeepLearning hidden layers nowadays as it is easy to calculate , it doesn't saturate, and its non-linear, which helps layers to cooperate. Also, it was shown that `ReLU` layers after filters suprisingly improve image classifiers performance. `ReLU` was used in convolutional layers. 
 
 #### About loss function
 
@@ -40,3 +40,4 @@
 - https://towardsdatascience.com/recognizing-cats-and-dogs-with-tensorflow-105eb56da35f
 - https://medium.com/@nutanbhogendrasharma/tensorflow-classify-images-of-cats-and-dogs-by-using-transfer-learning-59da26723bda
 - https://miro.medium.com/max/2000/1*ooVUXW6BIcoRdsF7kzkMwQ.png
+- https://neurohive.io/en/popular-networks/vgg16/

@@ -1,6 +1,6 @@
 function log(status, message){
   let dateObj = new Date();
-  let doublechar = (t)=>t.length<2?`0${t}`:t;
+  let doublechar = (t)=>t.toString().length<2?`0${t}`:t;
   let date = `[${doublechar(dateObj.getHours())}:${doublechar(dateObj.getMinutes())}:${doublechar(dateObj.getSeconds())}]`;
   if (status == 0){
     console.log("\x1b[1m\x1b[32m%s\x1b[0m", `${date}[INF] ${message}`);
