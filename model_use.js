@@ -46,6 +46,9 @@ const modelSettings = {
         model.predict(loadImage('./data/train/dog/dog.6153.jpg', newShape=shape)).print();
         
         model.predict(loadImage('./data/train/cat/cat.9101.jpg', newShape=shape)).print();
+
+        model.predict(loadImage('./data/train/cat/cat.1.jpg', newShape=shape)).print();
+        model.predict(loadImage('./data/train/cat/cat.2.jpg', newShape=shape)).print();
     }
     
 

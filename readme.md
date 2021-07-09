@@ -39,3 +39,4 @@
 - https://machinelearningmastery.com/dropout-for-regularizing-deep-neural-networks/
 - https://towardsdatascience.com/recognizing-cats-and-dogs-with-tensorflow-105eb56da35f
 - https://medium.com/@nutanbhogendrasharma/tensorflow-classify-images-of-cats-and-dogs-by-using-transfer-learning-59da26723bda
+- https://miro.medium.com/max/2000/1*ooVUXW6BIcoRdsF7kzkMwQ.png

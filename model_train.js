@@ -22,15 +22,15 @@ const saveModel=1;
 const savePath=`file://${__dirname}/model_test`;
 const shape = [128,128];
 const inputShape = shape.concat([3]);
-const n = 2000;
+const n = 100;
 const trainSettings = {
-    epochs:40,
+    epochs:100,
     stepsPerEpoch:10,
-    batchSize:200,
+    batchSize: 10,
     shuffle: true
 };
 const modelSettings = {
-    optimizer: tf.train.adam(0.001),
+    optimizer: tf.train.adam(0.002),
     loss: tf.losses.softmaxCrossEntropy,
     metrics:['accuracy']
 };
@@ -47,17 +47,22 @@ log(3,output);
 
 //model (custom [almost])
 const model = tf.sequential({layers:[
+    //tf.layers.batchNormalization({inputShape:inputShape}),
+
     tf.layers.conv2d({kernelSize: [3,3], filters:16, activation:'relu', inputShape:inputShape}),
-    tf.layers.conv2d({kernelSize: [3,3], filters:16, activation:'relu', inputShape:inputShape}),
+    //tf.layers.conv2d({kernelSize: [3,3], filters:16, activation:'relu'}),
     tf.layers.maxPooling2d({poolSize:[2,2]}),
 
     tf.layers.conv2d({kernelSize: [3,3], filters:32, activation:'relu'}),
-    tf.layers.conv2d({kernelSize: [3,3], filters:32, activation:'relu'}),
     tf.layers.maxPooling2d({poolSize:[2,2]}),
+
+    tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu'}),
+    tf.layers.maxPooling2d({poolSize:[2,2]}),
+    tf.layers.dropout({rate:0.3}),
 
     tf.layers.flatten(),
-    tf.layers.dense({units:128, activation:'relu'}),
-    tf.layers.dropout({rate:0.1}),
+    tf.layers.dense({units:256, activation:'relu'}),
+    tf.layers.dropout({rate:0.3}),
     tf.layers.dense({units:2, activation:'softmax'}),
 ]});
 model.summary();
