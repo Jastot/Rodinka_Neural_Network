@@ -5,4 +5,5 @@ package.json
 test1
 data
 model
-model_test
+model_*/
+__pycache__

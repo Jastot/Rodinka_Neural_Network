@@ -11,8 +11,9 @@ async function load(path){
 }
 
 //const
-//const modelPath = `file://${__dirname}/model/model.json`;
-const modelPath = `file://${__dirname}/model_test/model.json`;
+// const modelPath = `file://${__dirname}/model/model.json`;
+const modelPath = `file://${__dirname}/model_test3/model.json`;
+const dirPath=(p)=>`${__dirname}/data/_data${p}`;
 const shape = [128,128];
 const inputShape = shape.concat([3]);
 const ev = true;
@@ -29,32 +30,40 @@ const modelSettings = {
 (async()=>{
     const model = await load(modelPath);
     if (imgs){
-        model.predict(loadImage('./data/train/dog/dog.6130.jpg', newShape=shape)).print();
-        model.predict(loadImage('./data/train/dog/dog.6131.jpg', newShape=shape)).print();
-        model.predict(loadImage('./data/train/dog/dog.6132.jpg', newShape=shape)).print();
-        model.predict(loadImage('./data/train/dog/dog.6136.jpg', newShape=shape)).print();
-        model.predict(loadImage('./data/train/dog/dog.6138.jpg', newShape=shape)).print();
-        model.predict(loadImage('./data/train/dog/dog.6139.jpg', newShape=shape)).print();
-        model.predict(loadImage('./data/train/dog/dog.6142.jpg', newShape=shape)).print();
-        model.predict(loadImage('./data/train/dog/dog.6143.jpg', newShape=shape)).print();
-        model.predict(loadImage('./data/train/dog/dog.6145.jpg', newShape=shape)).print();
-        model.predict(loadImage('./data/train/dog/dog.6147.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/dog/dog.6130.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/dog/dog.6131.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/dog/dog.6132.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/dog/dog.6136.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/dog/dog.6138.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/dog/dog.6139.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/dog/dog.6142.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/dog/dog.6143.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/dog/dog.6145.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/dog/dog.6147.jpg', newShape=shape)).print();
         
-        model.predict(loadImage('./data/train/dog/dog.6144.jpg', newShape=shape)).print();
-        model.predict(loadImage('./data/train/dog/dog.6146.jpg', newShape=shape)).print();
-        model.predict(loadImage('./data/train/dog/dog.6148.jpg', newShape=shape)).print();
-        model.predict(loadImage('./data/train/dog/dog.6153.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/dog/dog.6144.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/dog/dog.6146.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/dog/dog.6148.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/dog/dog.6153.jpg', newShape=shape)).print();
         
-        model.predict(loadImage('./data/train/cat/cat.9101.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/cat/cat.9101.jpg', newShape=shape)).print();
 
-        model.predict(loadImage('./data/train/cat/cat.1.jpg', newShape=shape)).print();
-        model.predict(loadImage('./data/train/cat/cat.2.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/cat/cat.1.jpg', newShape=shape)).print();
+        // model.predict(loadImage('./data/train/cat/cat.2.jpg', newShape=shape)).print();
+
+        model.predict(loadImage(dirPath('/train/malignant/1256_1.jpg'), newShape=shape)).print();
+        model.predict(loadImage(dirPath('/train/benign/1215_0.jpg'), newShape=shape)).print();
+
+        model.predict(loadImage(dirPath('/train/malignant/1_1.jpg'), newShape=shape)).print();
+        model.predict(loadImage(dirPath('/train/benign/2_0.jpg'), newShape=shape)).print();
     }
     
 
     if(ev){
-        const data = loadImages('./data/train/test', newShape=shape);
-        const ys = tf.oneHot(tf.cast(tf.concat([tf.ones([500]), tf.zeros([500])]), 'int32'), depth=2);
+        const benign =  loadImages(dirPath('/test/benign'), newShape=shape);
+        const malignant = loadImages(dirPath('/test/malignant'), newShape=shape);
+        const data = tf.concat([benign, malignant]);
+        const ys = tf.oneHot(tf.cast(tf.concat([tf.zeros([benign.shape[0]]), tf.ones([malignant.shape[0]])]), 'int32'), depth=2);
         model.compile(modelSettings);
         let res = model.evaluate(data, ys);
         log(3, `loss: ${res[0]}`);

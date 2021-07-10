@@ -8,11 +8,11 @@ const loadImage = require('./input.js').loadImage;
 async function train(){
     await tf.util.shuffleCombo(input, output);
     const response = await model.fit(input, output, trainSettings);
-    model.predict(loadImage('./data/train/dog/dog.5535.jpg', newShape=shape)).print();
-    model.predict(loadImage('./data/train/cat/cat.3220.jpg', newShape=shape)).print();
+    // model.predict(loadImage('./data/train/dog/dog.5535.jpg', newShape=shape)).print();
+    // model.predict(loadImage('./data/train/cat/cat.3220.jpg', newShape=shape)).print();
 
-    model.predict(loadImage('./data/train/cat/cat.0.jpg', newShape=shape)).print();
-    model.predict(loadImage('./data/train/dog/dog.0.jpg', newShape=shape)).print();
+    model.predict(loadImage(dirPath('/train/benign/2_0.jpg'), newShape=shape)).print();
+    model.predict(loadImage(dirPath('/train/malignant/1_1.jpg'), newShape=shape)).print();
 
     let res = model.evaluate(input, output);
     log(3, `loss: ${res[0]}`);
@@ -27,22 +27,24 @@ async function save(model, path){
 const startTraining=1;
 const saveModel=1;
 
-const savePath=`file://${__dirname}/model_test`;
-const shape = [224,224];
+const savePath=`file://${__dirname}/model_test3`;
+const dirPath=(p)=>`${__dirname}/data/_data${p}`;
+const shape = [128,128];
 const inputShape = shape.concat([3]);
-const n = 2;
+const n = 200;
 const trainSettings = {
-    epochs:40,
+    epochs:200,
+    batchSize:32,
 };
 const modelSettings = {
-    optimizer: tf.train.adam(0.1),
+    optimizer: tf.train.adam(0.0001),
     loss: tf.losses.softmaxCrossEntropy,
     metrics:['accuracy']
 };
 
 //inputs
-const input_cat = loadImages('./data/train/cat', newShape=shape, limit=n);
-const input_dog = loadImages('./data/train/dog', newShape=shape, limit=n);
+const input_cat = loadImages(dirPath('/train/benign'), newShape=shape, limit=n);
+const input_dog = loadImages(dirPath('/train/malignant'), newShape=shape, limit=n);
 const input = tf.concat([input_cat, input_dog]);
 const output = tf.oneHot(tf.cast(tf.concat([tf.zeros([n]),tf.ones([n])]), 'int32'), depth=2);
 
@@ -51,49 +53,49 @@ log(3, output.shape);
 log(3,output);
 
 //model (custom [almost])
-const model = tf.sequential({layers:[
-
-    tf.layers.conv2d({kernelSize: [3,3], filters:16, activation:'relu', inputShape:inputShape}),
-    tf.layers.conv2d({kernelSize: [3,3], filters:16, activation:'relu', inputShape:inputShape}),
-    tf.layers.maxPooling2d({poolSize:[2,2]}),
-
-    tf.layers.conv2d({kernelSize: [3,3], filters:32, activation:'relu'}),
-    tf.layers.maxPooling2d({poolSize:[2,2]}),
-
-    tf.layers.flatten(),
-    tf.layers.dense({units:64, activation:'relu'}),
-    tf.layers.dense({units:2, activation:'softmax'}),
-]});
 // const model = tf.sequential({layers:[
-
-//     tf.layers.conv2d({kernelSize: [3,3], filters:16, activation:'relu', inputShape:inputShape}),
-//     tf.layers.conv2d({kernelSize: [3,3], filters:16, activation:'relu', inputShape:inputShape}),
-    
-//     tf.layers.maxPooling2d({poolSize:[2,2]}),
 //     tf.layers.conv2d({kernelSize: [3,3], filters:32, activation:'relu', inputShape:inputShape}),
-//     tf.layers.conv2d({kernelSize: [3,3], filters:32, activation:'relu', inputShape:inputShape}),
+//     tf.layers.conv2d({kernelSize: [3,3], filters:32, activation:'relu'}),
 
-//     tf.layers.maxPooling2d({poolSize:[2,2]}),
-//     tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu', inputShape:inputShape}),
-//     tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu', inputShape:inputShape}),
-//     tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu', inputShape:inputShape}),
+//     tf.layers.maxPool2d({poolSize: [2,2]}),
+//     tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu'}),
+//     tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu'}),
+//     tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu'}),
 
-//     tf.layers.maxPooling2d({poolSize:[2,2]}),
-//     tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu', inputShape:inputShape}),
-//     tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu', inputShape:inputShape}),
-//     tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu', inputShape:inputShape}),
+//     tf.layers.maxPool2d({poolSize: [2,2]}),
+//     tf.layers.conv2d({kernelSize: [3,3], filters:128, activation:'relu'}),
+//     tf.layers.conv2d({kernelSize: [3,3], filters:128, activation:'relu'}),
+//     tf.layers.conv2d({kernelSize: [3,3], filters:128, activation:'relu'}),
 
-//     tf.layers.maxPooling2d({poolSize:[2,2]}),
-//     tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu', inputShape:inputShape}),
-//     tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu', inputShape:inputShape}),
-//     tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu', inputShape:inputShape}),
-
-//     tf.layers.maxPooling2d({poolSize:[2,2]}),
+//     tf.layers.maxPool2d({poolSize: [2,2]}),
 //     tf.layers.flatten(),
-//     //tf.layers.dropout(0.9),
-//     tf.layers.dense({units:4096, activation:'softmax'}),
+//     tf.layers.dense({units:256, activation:'relu'}),
 //     tf.layers.dense({units:2, activation:'softmax'}),
 // ]});
+const model = tf.sequential({layers:[
+
+    tf.layers.conv2d({kernelSize: [3,3], filters:32, activation:'relu', inputShape:inputShape}),
+    tf.layers.conv2d({kernelSize: [3,3], filters:32, activation:'relu', inputShape:inputShape}),
+    
+    tf.layers.maxPooling2d({poolSize:[2,2]}),
+    tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu', inputShape:inputShape}),
+    tf.layers.conv2d({kernelSize: [3,3], filters:64, activation:'relu', inputShape:inputShape}),
+
+    tf.layers.maxPooling2d({poolSize:[2,2]}),
+    tf.layers.conv2d({kernelSize: [3,3], filters:128, activation:'relu', inputShape:inputShape}),
+    tf.layers.conv2d({kernelSize: [3,3], filters:128, activation:'relu', inputShape:inputShape}),
+    tf.layers.conv2d({kernelSize: [3,3], filters:128, activation:'relu', inputShape:inputShape}),
+
+    tf.layers.maxPooling2d({poolSize:[2,2]}),
+    tf.layers.conv2d({kernelSize: [3,3], filters:256, activation:'relu', inputShape:inputShape}),
+    tf.layers.conv2d({kernelSize: [3,3], filters:256, activation:'relu', inputShape:inputShape}),
+    tf.layers.conv2d({kernelSize: [3,3], filters:256, activation:'relu', inputShape:inputShape}),
+
+    tf.layers.maxPooling2d({poolSize:[2,2]}),
+    tf.layers.flatten(),
+    tf.layers.dense({units:1024, activation:'relu'}),
+    tf.layers.dense({units:2, activation:'softmax'}),
+]});
 model.summary();
 
 model.compile(modelSettings);
