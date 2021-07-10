@@ -9,6 +9,7 @@ from exp_input import load_image, load_images
 # functions
 def load(path):
     model = tf.keras.models.load_model(path)
+    return model
 
 # consts
 imgs = False
@@ -31,4 +32,7 @@ if (ev):
     malignant = load_images(dir_path('/test/malignant'), newShape=shape)
     data = tf.concat([benign, malignant], axis=0)
     labels = tf.one_hot(tf.cast(tf.concat([tf.zeros([benign.shape[0]]), tf.ones([malignant.shape[0]])]), 'int32'), depth=2)
+
+    model = load(model_path)
     model.compile(optimizer=model_settings["optimizer"], loss=model_settings["loss"], metrics=model_settings["metrics"])
+    print(model.evaluate(data,labels))

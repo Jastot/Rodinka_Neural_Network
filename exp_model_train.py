@@ -23,14 +23,14 @@ savePath=f"{os.getcwd()}/model_testpy"
 dirPath=lambda p: f"{os.getcwd()}/data/_data{p}"
 shape=(128,128)
 inputShape=tuple(shape+(3,))
-n=10
+n=200
 trainSettings = {
-    "epochs":10,
+    "epochs":100,
     "batch_size":32,
     "shuffle":True
 }
 modelSettings = {
-    "optimizer":tf.keras.optimizers.Adam(learning_rate=0.0003),
+    "optimizer":tf.keras.optimizers.Adam(learning_rate=0.001),
     "loss": tf.keras.losses.binary_crossentropy,
     "metrics":['accuracy']
 }
@@ -42,6 +42,9 @@ model = tf.keras.Sequential(layers=[
     tf.keras.layers.MaxPool2D(pool_size=(2,2)),
     tf.keras.layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
     tf.keras.layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
+    tf.keras.layers.MaxPool2D(pool_size=(2,2)),
+    tf.keras.layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
+    tf.keras.layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
     tf.keras.layers.MaxPool2D(pool_size=(2,2)),
     tf.keras.layers.Dense(units=32, activation='relu'),
     tf.keras.layers.Flatten(),
