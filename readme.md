@@ -24,12 +24,7 @@
 
 ​	From the first sight, `tf.losses.meanSquaredError` was a choice. However, after a bit of research, we realised that `tf.losses.meanSquaredError` is mostly used for *regression* problems because of its mathematic nature. Long story short, it can't penalise the model enough when solving *classification* problems.
 
-​	Thereby, a cross entropy function was chosen. It minimizes -log(likelihood)​, thus penalising the model more when it outputs a very bed result. However, there are two versions of it in a tensorflow library: `tf.losses.sigmoidCrossEntropy` and `tf.losses.softmaxCrossEntropy`. The differnce is unknown, but the softmax performs better so it was used. (??????)
-
-| Loss Function       | Loss  | Accuracy |
-| ------------------- | ----- | -------- |
-| softmaxCrossEntropy | 0.395 | 0.877    |
-| sigmoidCrossEntropy | 0.486 | 0.746    |
+​	Thereby, a cross entropy function was chosen. It minimizes -log(likelihood)​, thus penalising the model more when it outputs a very bed result. However, there are many versions of in the tensorflow library. The differnce is unknown, but the `binary` one was used as we have only two classes.
 
 ### Used to understand the topic
 
@@ -41,3 +36,5 @@
 - https://medium.com/@nutanbhogendrasharma/tensorflow-classify-images-of-cats-and-dogs-by-using-transfer-learning-59da26723bda
 - https://miro.medium.com/max/2000/1*ooVUXW6BIcoRdsF7kzkMwQ.png
 - https://neurohive.io/en/popular-networks/vgg16/
+- https://www.tensorflow.org/tutorials/distribute/multi_worker_with_keras#train_the_model
+- https://www.tensorflow.org/guide/distributed_training#multiworkermirroredstrategy

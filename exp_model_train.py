@@ -21,7 +21,7 @@ startTraining=True
 saveModel=True
 savePath=f"{os.getcwd()}/model_testpy"
 dirPath=lambda p: f"{os.getcwd()}/data/_data{p}"
-shape=(128,128)
+shape=(224,224)
 inputShape=tuple(shape+(3,))
 n=200
 trainSettings = {
@@ -30,25 +30,30 @@ trainSettings = {
     "shuffle":True
 }
 modelSettings = {
-    "optimizer":tf.keras.optimizers.Adam(learning_rate=0.001),
+    "optimizer":tf.keras.optimizers.Adam(learning_rate=0.0001),
     "loss": tf.keras.losses.binary_crossentropy,
     "metrics":['accuracy']
 }
 
 # main
 model = tf.keras.Sequential(layers=[
-    tf.keras.layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu', input_shape=inputShape),
-    tf.keras.layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'),
-    tf.keras.layers.MaxPool2D(pool_size=(2,2)),
-    tf.keras.layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
+    tf.keras.layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu', input_shape=inputShape),
     tf.keras.layers.Conv2D(filters=64, kernel_size=(3,3), activation='relu'),
     tf.keras.layers.MaxPool2D(pool_size=(2,2)),
     tf.keras.layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
     tf.keras.layers.Conv2D(filters=128, kernel_size=(3,3), activation='relu'),
     tf.keras.layers.MaxPool2D(pool_size=(2,2)),
-    tf.keras.layers.Dense(units=32, activation='relu'),
+    tf.keras.layers.Conv2D(filters=256, kernel_size=(3,3), activation='relu'),
+    tf.keras.layers.Conv2D(filters=256, kernel_size=(3,3), activation='relu'),
+    tf.keras.layers.Conv2D(filters=256, kernel_size=(3,3), activation='relu'),
+    tf.keras.layers.MaxPool2D(pool_size=(2,2)),
+    tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), activation='relu'),
+    tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), activation='relu'),
+    tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), activation='relu'),
+    tf.keras.layers.MaxPool2D(pool_size=(2,2)),
     tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(units=2, activation='softmax')
+    tf.keras.layers.Dense(units=4096, activation='relu'),
+    tf.keras.layers.Dense(units=2, activation='sigmoid')
 ])
 
 model.summary()
