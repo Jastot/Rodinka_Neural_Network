@@ -24,6 +24,14 @@
 
 ​	A cross entropy function was chosen. It minimizes -log(likelihood)​, thus strongly penalising the model when it outputs a very bed result. However, there are many versions of in the tensorflow library. The differnce is unknown, but the `binary` one was used as we have only two classes.
 
+#### Created models
+
+| Model name | Loss | Accuracy | Pic res | Params |
+| :--------- | :--- | :------- | ------- | ------ |
+| model_2_1  | 1.02 | 0.837    | 224x224 | 555k   |
+
+
+
 ### Used to understand the topic
 
 - https://www.quora.com/What-makes-ReLU-so-much-better-than-Linear-Activation-As-half-of-them-are-exactly-the-same
