@@ -6,7 +6,7 @@ const app = express();
 const morgan = require('morgan');
 const tfjs = require('@tensorflow/tfjs-node');
 
-const path = `file://${__dirname}/model_vgg/js/model.json`;
+const path = `file://${__dirname}/model_2_1/js/model.json`;
 const port = 5005;
 const shape=[224,224]
 
