@@ -4,8 +4,17 @@ const log = require('./logger.js').log;
 const tf = require('@tensorflow/tfjs-node');
 
 //do a little trolling...
+function loadImageFromBuffer(buffer, newShape=[32,32]){
+    log(0, `Loading image from buffer`);
+    var tensor = tf.node.decodeImage(buffer)
+                    .resizeNearestNeighbor(newShape)
+                    .toFloat()
+                    .div(tf.scalar(255.0))
+                    .expandDims()
+    log(0, "Loaded image");
+    return tensor;
+}
 
-//A LITTLE TROLLING
 function loadImage(path, newShape=[32, 32]){
     log(0,`Loading image ${__dirname+path}`)
     var buffer = fs.readFileSync(path);
@@ -50,19 +59,7 @@ function loadImages(dir, newShape=[32, 32], limit = null){
     return output;
 }
 
-//maybe?
-/*
-function splitData(data){
-
-}
-*/
-
-//mamba
-/*
-(async()=>{
-    log(3,loadImages('./data/not_ok'))
-})()/*/
-
 //exports
 exports.loadImages = loadImages;
 exports.loadImage = loadImage;
+exports.loadImageFromBuffer = loadImageFromBuffer;

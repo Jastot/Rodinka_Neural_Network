@@ -22,9 +22,7 @@
 
 #### About loss function
 
-​	From the first sight, `tf.losses.meanSquaredError` was a choice. However, after a bit of research, we realised that `tf.losses.meanSquaredError` is mostly used for *regression* problems because of its mathematic nature. Long story short, it can't penalise the model enough when solving *classification* problems.
-
-​	Thereby, a cross entropy function was chosen. It minimizes -log(likelihood)​, thus penalising the model more when it outputs a very bed result. However, there are many versions of in the tensorflow library. The differnce is unknown, but the `binary` one was used as we have only two classes.
+​	A cross entropy function was chosen. It minimizes -log(likelihood)​, thus strongly penalising the model when it outputs a very bed result. However, there are many versions of in the tensorflow library. The differnce is unknown, but the `binary` one was used as we have only two classes.
 
 ### Used to understand the topic
 
@@ -38,3 +36,5 @@
 - https://neurohive.io/en/popular-networks/vgg16/
 - https://www.tensorflow.org/tutorials/distribute/multi_worker_with_keras#train_the_model
 - https://www.tensorflow.org/guide/distributed_training#multiworkermirroredstrategy
+- https://arxiv.org/pdf/1409.4842.pdf
+- https://arxiv.org/abs/1602.07360

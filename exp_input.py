@@ -6,7 +6,9 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 
-def load_image(path, newShape=(32,32)):
+default_shape = (96,96)
+
+def load_image(path, newShape=default_shape):
     print(f"Loading image {os.getcwd()+'/'+path}")
     buffer = Image.open(f"{path}")
     buffer.load()
@@ -20,7 +22,7 @@ def load_image(path, newShape=(32,32)):
 
 
 
-def load_images(path, newShape=(32,32), limit=0):
+def load_images(path, newShape=default_shape, limit=0):
     print(f"Loading images {os.getcwd()+'/'+path}")
     unsorted = []
     sorted=[]

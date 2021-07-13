@@ -12,9 +12,9 @@ async function load(path){
 
 //const
 // const modelPath = `file://${__dirname}/model/model.json`;
-const modelPath = `file://${__dirname}/model_test3/model.json`;
+const modelPath = `file://${__dirname}/model_vgg/js/model.json`;
 const dirPath=(p)=>`${__dirname}/data/_data${p}`;
-const shape = [128,128];
+const shape = [224,224];
 const inputShape = shape.concat([3]);
 const ev = true;
 const imgs = !false;
