@@ -7,3 +7,5 @@ data
 model
 model_*/
 __pycache__
+.DS_STORE
+!model_2_1
