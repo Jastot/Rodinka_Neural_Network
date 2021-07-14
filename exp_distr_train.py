@@ -48,4 +48,4 @@ task_type, task_id = (strategy.cluster_resolver.task_type, strategy.cluster_reso
 write_model_path = write_filepath(model_path, task_type, task_id)
 if(_is_chief(task_type, task_id)):
     multi_worker_model.save(write_model_path)
-    tfjs.converters.save_keras_model(multi_worker_model, f"{model_path}/js")
+    tfjs.converters.save_keras_model(multi_worker_model, f"{model_path}_js")
