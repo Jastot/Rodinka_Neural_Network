@@ -48,5 +48,5 @@ multi_worker_model.fit(multi_worker_dataset, epochs=epochs, steps_per_epoch=spe)
 task_type, task_id = (strategy.cluster_resolver.task_type, strategy.cluster_resolver.task_id)
 write_model_path = write_filepath(model_path, task_type, task_id)
 if(_is_chief(task_type, task_id)):
-    multi_worker_model.save(write_model_path)
-    tfjs.converters.save_keras_model(multi_worker_model, f"{model_path}_js")
+    multi_worker_model.save(f"{model_path}/py")
+    tfjs.converters.save_keras_model(multi_worker_model, f"{model_path}/js")
