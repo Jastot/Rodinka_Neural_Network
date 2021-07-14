@@ -5,7 +5,7 @@ import sys
 import tensorflow as tf
 import tensorflowjs as tfjs
 
-from exp_input import load_image, load_images
+from exp_input.py import load_image, load_images
 
 # main
 
