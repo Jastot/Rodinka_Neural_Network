@@ -15,8 +15,8 @@ def load(path):
 imgs = False
 ev = True
 
-model_path=f"{os.getcwd()}/model_2_1/py"
-dir_path=lambda p: f"{os.getcwd()}/data/_data{p}"
+model_path=f"{os.getcwd()}/../../models/model_2_1/py"
+dir_path=lambda p: f"{os.getcwd()}/../../data/_data{p}"
 shape=(224,224)
 input_shape=tuple(shape+(3,))
 model_settings = {

@@ -21,8 +21,8 @@ def save(model, path):
 # consts
 startTraining=1
 saveModel=True
-savePath=f"{os.getcwd()}/model_2_2"
-dirPath=lambda p: f"{os.getcwd()}/data/_data{p}"
+savePath=f"{os.getcwd()}/../../models/model_2_2"
+dirPath=lambda p: f"{os.getcwd()}/../../data/_data{p}"
 shape=(224,224)
 inputShape=tuple(shape+(3,))
 n=0

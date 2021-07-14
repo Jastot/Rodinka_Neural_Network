@@ -9,8 +9,7 @@ from exp_input import load_image, load_images
 
 # main
 
-savePath=f"./model_2_2"
-dirPath=lambda p: f"./data/_data{p}"
+dirPath=lambda p: f"../../data/_data{p}"
 shape=(224,224)
 inputShape=tuple(shape+(3,))
 n=0

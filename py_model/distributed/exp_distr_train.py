@@ -24,7 +24,7 @@ def write_filepath(filepath, task_type, task_id):
     return os.path.join(dirpath, base)
 
 # main
-model_path = './model_2_1_2'
+model_path = '../../models/model_2_1_2'
 
 batch_size = 64
 tf_config = json.loads(os.environ['TF_CONFIG'])

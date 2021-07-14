@@ -1,8 +1,8 @@
 //require
-const log = require('./logger.js').log;
+const log = require('../js_microservice/logger.js').log;
 const tf = require('@tensorflow/tfjs-node');
-const loadImages = require('./input.js').loadImages;
-const loadImage = require('./input.js').loadImage;
+const loadImages = require('../js_common/input.js').loadImages;
+const loadImage = require('../js_common/input.js').loadImage;
 
 //functions
 async function load(path){
@@ -11,9 +11,8 @@ async function load(path){
 }
 
 //const
-// const modelPath = `file://${__dirname}/model/model.json`;
-const modelPath = `file://${__dirname}/model_vgg/js/model.json`;
-const dirPath=(p)=>`${__dirname}/data/_data${p}`;
+const modelPath = `file://${__dirname}/../models/model_vgg/js/model.json`;
+const dirPath=(p)=>`${__dirname}/../data/_data${p}`;
 const shape = [224,224];
 const inputShape = shape.concat([3]);
 const ev = true;

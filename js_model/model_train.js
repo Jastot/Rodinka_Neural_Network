@@ -1,8 +1,8 @@
 //require
-const log = require('./logger.js').log;
+const log = require('../js_common/logger.js').log;
 const tf = require('@tensorflow/tfjs-node');
-const loadImages = require('./input.js').loadImages;
-const loadImage = require('./input.js').loadImage;
+const loadImages = require('../js_common/input.js').loadImages;
+const loadImage = require('../js_common/input.js').loadImage;
 
 //functions
 async function train(){

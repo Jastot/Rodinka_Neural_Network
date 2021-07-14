@@ -1,12 +1,12 @@
 const log = require('./logger.js').log;
-const loadImageFromBuffer = require('./input.js').loadImageFromBuffer;
+const loadImageFromBuffer = require('../js_common/input.js').loadImageFromBuffer;
 
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const tfjs = require('@tensorflow/tfjs-node');
 
-const path = `file://${__dirname}/model_2_1/js/model.json`;
+const path = `file://${__dirname}/../models/model_2_1/js/model.json`;
 const port = 5005;
 const shape=[224,224]
 
