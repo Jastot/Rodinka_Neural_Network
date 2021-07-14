@@ -1,15 +1,12 @@
 //require
 const log = require('../js_common/logger.js').log;
 const tf = require('@tensorflow/tfjs-node');
-const loadImages = require('../js_common/input.js').loadImages;
-const loadImage = require('../js_common/input.js').loadImage;
+const { loadImages, loadImage } = require('../js_common/input.js');
 
 //functions
 async function train(){
     await tf.util.shuffleCombo(input, output);
     const response = await model.fit(input, output, trainSettings);
-    // model.predict(loadImage('./data/train/dog/dog.5535.jpg', newShape=shape)).print();
-    // model.predict(loadImage('./data/train/cat/cat.3220.jpg', newShape=shape)).print();
 
     model.predict(loadImage(dirPath('/train/benign/2_0.jpg'), newShape=shape)).print();
     model.predict(loadImage(dirPath('/train/malignant/1_1.jpg'), newShape=shape)).print();

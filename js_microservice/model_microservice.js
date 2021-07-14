@@ -1,4 +1,4 @@
-const log = require('./logger.js').log;
+const log = require('../js_common/logger.js').log;
 const loadImageFromBuffer = require('../js_common/input.js').loadImageFromBuffer;
 
 const express = require('express');
