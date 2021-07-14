@@ -8,8 +8,8 @@ import tensorflowjs as tfjs
 from exp_input import load_image, load_images
 
 # functions
-def train(i, o):
-    response = model.fit(i, o, epochs=trainSettings["epochs"], batch_size=trainSettings["batch_size"])
+def train(ds):
+    response = model.fit(ds, epochs=trainSettings["epochs"])
     return
 
 def save(model, path):
@@ -28,7 +28,6 @@ inputShape=tuple(shape+(3,))
 n=0
 trainSettings = {
     "epochs":60,
-    "batch_size":32,
     "shuffle":True
 }
 modelSettings = {
@@ -80,12 +79,17 @@ model.compile(optimizer=modelSettings["optimizer"], loss=modelSettings["loss"], 
 # inputs
 input_benign = load_images(dirPath('/train/benign'), newShape=shape, limit=n)
 input_malignant = load_images(dirPath('/train/malignant'), newShape=shape, limit=n)
-input = tf.concat([input_benign, input_malignant], axis=0)
-output = tf.one_hot(tf.cast(tf.concat([tf.zeros([input_benign.shape[0]]), tf.ones([input_malignant.shape[0]])], axis=0), 'int32'), depth=2)
+input_tensor = tf.concat([input_benign, input_malignant], axis=0)
+output_tensor = tf.one_hot(tf.cast(tf.concat([tf.zeros([input_benign.shape[0]]), tf.ones([input_malignant.shape[0]])], axis=0), 'int32'), depth=2)
 
-print(f"Input shape: {input.shape}")
-print(f"Output shape: {output.shape}")
+dataset = tf.data.Dataset.from_tensor_slices((input_tensor, output_tensor))
+dataset = dataset.shuffle(buffer_size=1000)
+dataset = dataset.batch(64)
+
+
+print(f"Input shape: {input_tensor.shape}")
+print(f"Output shape: {output_tensor.shape}")
 
 if(startTraining):
-    train(input, output)
+    train(dataset)
     save(model, savePath)
