@@ -33,11 +33,12 @@ num_workers = len(tf_config['cluster']['worker'])
 
 epochs = model_config['epochs']
 spe = model_config['spe']
+s = model_config['s']
 
 strategy = tf.distribute.MultiWorkerMirroredStrategy()
 
 global_batch_size = batch_size * num_workers
-multi_worker_dataset = exp_distr_model.dataset(global_batch_size)
+multi_worker_dataset = exp_distr_model.dataset(global_batch_size, s)
 
 with strategy.scope():
     multi_worker_model = exp_distr_model.model()

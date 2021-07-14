@@ -20,13 +20,13 @@ modelSettings = {
     "metrics":['accuracy']
 }
 
-def dataset(bs):
+def dataset(bs, s):
     input_benign = load_images(dirPath('/train/benign'), newShape=shape, limit=n)
     input_malignant = load_images(dirPath('/train/malignant'), newShape=shape, limit=n)
     input_tensor = tf.concat([input_benign, input_malignant], axis=0)
     output_tensor = tf.one_hot(tf.cast(tf.concat([tf.zeros([input_benign.shape[0]]), tf.ones([input_malignant.shape[0]])], axis=0), 'int32'), depth=2)
 
-    dataset = tf.data.Dataset.from_tensor_slices((input_tensor, output_tensor)).shuffle(1000).repeat().batch(bs)
+    dataset = tf.data.Dataset.from_tensor_slices((input_tensor, output_tensor)).shuffle(s).repeat().batch(bs)
 
     return dataset
 
