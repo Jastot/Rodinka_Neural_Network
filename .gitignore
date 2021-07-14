@@ -4,3 +4,10 @@ not_ok
 package.json
 test1
 data
+model
+model_*/
+__pycache__
+.DS_STORE
+.vscode
+
+!model_2_1
