@@ -15,7 +15,7 @@ def load(path):
 # consts
 imgs = False
 ev = False
-pic = True
+pic = False
 
 model_path=f"{os.getcwd()}/../../models/model_2_1/py"
 dir_path=lambda p: f"{os.getcwd()}/../../data/DataSet{p}"
@@ -29,6 +29,7 @@ model_settings = {
 # main
 model = load(model_path)
 model.compile(optimizer=model_settings["optimizer"], loss=model_settings["loss"], metrics=model_settings["metrics"])
+model.summary()
 if (pic):
     visualkeras.layered_view(model, to_file=f"{model_path}/../model.png").show()
 if (ev):
