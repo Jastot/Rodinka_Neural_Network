@@ -3,6 +3,7 @@ import os
 import sys
 
 import tensorflow as tf
+import visualkeras
 
 from exp_input import load_image, load_images
 
@@ -13,7 +14,8 @@ def load(path):
 
 # consts
 imgs = False
-ev = True
+ev = not False
+pic = False
 
 model_path=f"{os.getcwd()}/../../models/model_2_1/py"
 dir_path=lambda p: f"{os.getcwd()}/../../data/_data{p}"
@@ -25,12 +27,14 @@ model_settings = {
     "metrics":['accuracy']
 }
 # main
+model = load(model_path)
+model.compile(optimizer=model_settings["optimizer"], loss=model_settings["loss"], metrics=model_settings["metrics"])
+model.summary()
+if (pic):
+    visualkeras.layered_view(model, to_file=f"{model_path}/../model.png").show()
 if (ev):
     benign = load_images(dir_path('/test/benign'), newShape=shape)
     malignant = load_images(dir_path('/test/malignant'), newShape=shape)
     data = tf.concat([benign, malignant], axis=0)
     labels = tf.one_hot(tf.cast(tf.concat([tf.zeros([benign.shape[0]]), tf.ones([malignant.shape[0]])],axis=0), 'int32'), depth=2)
-
-    model = load(model_path)
-    model.compile(optimizer=model_settings["optimizer"], loss=model_settings["loss"], metrics=model_settings["metrics"])
     print(model.evaluate(data,labels))
