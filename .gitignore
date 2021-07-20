@@ -11,3 +11,7 @@ __pycache__
 .vscode
 
 !model_2_1
+!model_2_2
+!model_2_2_1k
+!model_2_2_3k
+!model_2_2_400
