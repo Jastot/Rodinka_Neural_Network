@@ -71,7 +71,7 @@ model = tf.keras.Sequential(layers=[
     
     tf.keras.layers.GlobalMaxPooling2D(),
     tf.keras.layers.Dense(units=64, activation='relu'),
-    tf.keras.layers.Dense(units=2, activation='sigmoid')
+    tf.keras.layers.Dense(units=2, activation='softmax')
 ])
 model.summary()
 model.compile(optimizer=modelSettings["optimizer"], loss=modelSettings["loss"], metrics=modelSettings["metrics"])
