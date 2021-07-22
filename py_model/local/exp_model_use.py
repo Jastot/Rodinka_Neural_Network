@@ -15,7 +15,7 @@ def load(path):
 imgs = False
 ev = True
 
-model_path=f"{os.getcwd()}/../../models/model_2_2_3k/py"
+model_path=f"{os.getcwd()}/../../models/model_2_2_7k/py"
 dir_path=lambda p: f"{os.getcwd()}/../../data/_data/train{p}"
 shape=(224,224)
 input_shape=tuple(shape+(3,))

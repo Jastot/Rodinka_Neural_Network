@@ -21,11 +21,11 @@ def save(model, path):
 # consts
 startTraining=1
 saveModel=True
-savePath=f"./../../models/model_2_2_3k"
+savePath=f"./../../models/model_2_2_7k"
 dirPath=lambda p: f"./../../data/DataSet{p}"
 shape=(224,224)
 inputShape=tuple(shape+(3,))
-n=1500
+n=3500
 trainSettings = {
     "epochs":85,
     "shuffle":True
@@ -83,7 +83,7 @@ input_tensor = tf.concat([input_benign, input_malignant], axis=0)
 output_tensor = tf.one_hot(tf.cast(tf.concat([tf.zeros([input_benign.shape[0]]), tf.ones([input_malignant.shape[0]])], axis=0), 'int32'), depth=2)
 
 dataset = tf.data.Dataset.from_tensor_slices((input_tensor, output_tensor))
-dataset = dataset.shuffle(buffer_size=5000)
+dataset = dataset.shuffle(buffer_size=8000)
 dataset = dataset.batch(64)
 
 
