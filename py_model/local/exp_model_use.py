@@ -17,8 +17,8 @@ imgs = False
 ev = not False
 pic = False
 
-model_path=f"{os.getcwd()}/../../models/model_2_1/py"
-dir_path=lambda p: f"{os.getcwd()}/../../data/_data{p}"
+model_path=f"{os.getcwd()}/../../models/model_2_2_7k/py"
+dir_path=lambda p: f"{os.getcwd()}/../../data/_data/train{p}"
 shape=(224,224)
 input_shape=tuple(shape+(3,))
 model_settings = {
@@ -33,8 +33,8 @@ model.summary()
 if (pic):
     visualkeras.layered_view(model, to_file=f"{model_path}/../model.png").show()
 if (ev):
-    benign = load_images(dir_path('/test/benign'), newShape=shape)
-    malignant = load_images(dir_path('/test/malignant'), newShape=shape)
+    benign = load_images(dir_path('/benign'), newShape=shape)
+    malignant = load_images(dir_path('/malignant'), newShape=shape)
     data = tf.concat([benign, malignant], axis=0)
     labels = tf.one_hot(tf.cast(tf.concat([tf.zeros([benign.shape[0]]), tf.ones([malignant.shape[0]])],axis=0), 'int32'), depth=2)
     print(model.evaluate(data,labels))

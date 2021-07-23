@@ -21,13 +21,13 @@ def save(model, path):
 # consts
 startTraining=1
 saveModel=True
-savePath=f"{os.getcwd()}/../../models/model_2_2"
-dirPath=lambda p: f"{os.getcwd()}/../../data/_data{p}"
+savePath=f"./../../models/model_2_2_7k"
+dirPath=lambda p: f"./../../data/DataSet{p}"
 shape=(224,224)
 inputShape=tuple(shape+(3,))
-n=0
+n=3500
 trainSettings = {
-    "epochs":60,
+    "epochs":85,
     "shuffle":True
 }
 modelSettings = {
@@ -71,19 +71,19 @@ model = tf.keras.Sequential(layers=[
     
     tf.keras.layers.GlobalMaxPooling2D(),
     tf.keras.layers.Dense(units=64, activation='relu'),
-    tf.keras.layers.Dense(units=2, activation='sigmoid')
+    tf.keras.layers.Dense(units=2, activation='softmax')
 ])
 model.summary()
 model.compile(optimizer=modelSettings["optimizer"], loss=modelSettings["loss"], metrics=modelSettings["metrics"])
 
 # inputs
-input_benign = load_images(dirPath('/train/benign'), newShape=shape, limit=n)
-input_malignant = load_images(dirPath('/train/malignant'), newShape=shape, limit=n)
+input_benign = load_images(dirPath('/benign'), newShape=shape, limit=n)
+input_malignant = load_images(dirPath('/malignant'), newShape=shape, limit=n)
 input_tensor = tf.concat([input_benign, input_malignant], axis=0)
 output_tensor = tf.one_hot(tf.cast(tf.concat([tf.zeros([input_benign.shape[0]]), tf.ones([input_malignant.shape[0]])], axis=0), 'int32'), depth=2)
 
 dataset = tf.data.Dataset.from_tensor_slices((input_tensor, output_tensor))
-dataset = dataset.shuffle(buffer_size=1000)
+dataset = dataset.shuffle(buffer_size=8000)
 dataset = dataset.batch(64)
 
 
