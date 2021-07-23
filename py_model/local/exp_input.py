@@ -22,19 +22,25 @@ def load_image(path, newShape=default_shape):
 
 
 
-def load_images(path, newShape=default_shape, limit=0):
+def load_images(path, newShape=default_shape, limit=0, startswith=0):
     print(f"Loading images {os.getcwd()+'/'+path}")
     unsorted = []
     sorted=[]
     tensors=[]
-
-    for file in os.listdir(f"{path}"):
+    files = os.listdir(f"{path}")
+    if limit==0:
+        limit = len(files)
+    else:
+        limit+=startswith
+    print(limit)
+    print(startswith)
+    for i in range(startswith, limit):
+        file = files[i]
         if(file.endswith('.jpg') or file.endswith('.png') or file.endswith('.jpeg')):
-            if(limit>0):
-                if(len(sorted)<limit):
-                    sorted.append(file)
-            else:
+            if(len(sorted)<(limit-startswith)):
                 sorted.append(file)
+            else:
+                pass
     
     for name in sorted:
         buffer = Image.open(f"{path}/{name}")

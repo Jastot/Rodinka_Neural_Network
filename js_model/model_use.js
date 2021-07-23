@@ -1,5 +1,5 @@
 //require
-const log = require('../js_microservice/logger.js').log;
+const log = require('../js_common/logger.js').log;
 const tf = require('@tensorflow/tfjs-node');
 const loadImages = require('../js_common/input.js').loadImages;
 const loadImage = require('../js_common/input.js').loadImage;
@@ -11,7 +11,7 @@ async function load(path){
 }
 
 //const
-const modelPath = `file://${__dirname}/../models/model_vgg/js/model.json`;
+const modelPath = `file://${__dirname}/../models/model_2_2_7k/js/model.json`;
 const dirPath=(p)=>`${__dirname}/../data/_data${p}`;
 const shape = [224,224];
 const inputShape = shape.concat([3]);
@@ -19,8 +19,8 @@ const ev = true;
 const imgs = !false;
 
 const modelSettings = {
-    optimizer: tf.train.adam(0.001),
-    loss: tf.losses.softmaxCrossEntropy,
+    optimizer: tf.train.adam(0.0003),
+    loss: tf.losses.sigmoidCrossEntropy,
     metrics:['accuracy']
 };
 
@@ -59,8 +59,8 @@ const modelSettings = {
     
 
     if(ev){
-        const benign =  loadImages(dirPath('/test/benign'), newShape=shape);
-        const malignant = loadImages(dirPath('/test/malignant'), newShape=shape);
+        const benign =  loadImages(dirPath('/train/benign'), newShape=shape);
+        const malignant = loadImages(dirPath('/train/malignant'), newShape=shape);
         const data = tf.concat([benign, malignant]);
         const ys = tf.oneHot(tf.cast(tf.concat([tf.zeros([benign.shape[0]]), tf.ones([malignant.shape[0]])]), 'int32'), depth=2);
         model.compile(modelSettings);
