@@ -22,8 +22,11 @@ port = 5005
 
 model = load(model_path)
 
+class ThreadingServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
+    pass
+
 class Handler(http.server.BaseHTTPRequestHandler):
-    def usecnn(self, data):
+    async def usecnn(self, data):
         imgbytes = Image.open(BytesIO(base64.b64decode(data)))
         imgbytes.load()
         data = np.asarray(imgbytes, dtype="float32")
@@ -59,7 +62,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         self.wfile.write('badreq'.encode('utf-8'))
         return
 
-def run(server_class=http.server.HTTPServer, handler_class=Handler):
+def run(server_class=ThreadingServer, handler_class=Handler):
     server_address = ('localhost', port)
     httpd = server_class(server_address, handler_class)
 
