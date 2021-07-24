@@ -26,7 +26,7 @@ class ThreadingServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
     pass
 
 class Handler(http.server.BaseHTTPRequestHandler):
-    async def usecnn(self, data):
+    def usecnn(self, data):
         imgbytes = Image.open(BytesIO(base64.b64decode(data)))
         imgbytes.load()
         data = np.asarray(imgbytes, dtype="float32")
